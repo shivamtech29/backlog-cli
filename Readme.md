@@ -27,6 +27,10 @@ Set-ExecutionPolicy RemoteSigned -Scope Process
 backlog --init
 ```
 
+Note: Using via Docker:
+
+1. Pull latest Image from [DockerHub](https://hub.docker.com/repository/docker/shivamtech29/backlog-cli-manager) and Run the container. Use the container shell to interact with package.
+
 ## Release: 0.1.0
 
 ## Features:

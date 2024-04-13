@@ -2,13 +2,6 @@ FROM node:latest
 
 WORKDIR /app
 
-ENV COMMAND "backlog -la"
+RUN npm install -g backlog-cli-manager
 
-COPY package*.json ./
-
-RUN npm install
-RUN npm install -g
-
-COPY . .
-
-CMD $COMMAND
+CMD backlog --init
