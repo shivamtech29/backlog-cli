@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function updateBacklog(name, status){
-    const tasksJSON = fs.readFileSync('./srv/db/backlogs.json', 'utf8');
+    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
     const tasks = JSON.parse(tasksJSON);
 
     const indexToUpdate = tasks.findIndex(obj => obj.Name.toLowerCase() === name.toLowerCase());
@@ -13,7 +13,7 @@ function updateBacklog(name, status){
         console.log("Backlog with name", name, "not found.");
     }
     const updatedTasksJSON = JSON.stringify(tasks);
-    fs.writeFileSync('./srv/db/backlogs.json', updatedTasksJSON);
+    fs.writeFileSync('./backlog-db/backlogs.json', updatedTasksJSON);
 }
 
 module.exports = updateBacklog

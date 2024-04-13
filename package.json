@@ -1,20 +1,29 @@
 {
-  "name": "backlog",
-  "version": "0.0.1",
-  "description": "",
+  "name": "backlog-cli-manager",
+  "version": "0.1.0",
+  "description": "This is a cli tool project craeted to manage tasks and backlogs on cli for developers who want quick access of all tasks while working on terminal itself.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shivam Agarwal",
   "license": "ISC",
   "dependencies": {
     "cli-table3": "^0.6.4",
     "commander": "^12.0.0",
-    "figlet": "^1.7.0"
+    "figlet": "^1.7.0",
+    "path": "^0.12.7"
   },
   "bin": {
     "backlog": "cli.js"
-  }
+  },
+  "files": [
+    "srv/",
+    "assets",
+    "*.js",
+    "Readme.md",
+    "*.json",
+    "Dockerfile"
+  ]
 }

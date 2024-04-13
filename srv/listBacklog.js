@@ -16,7 +16,7 @@ function listBacklogByStatus(tasks,status){
 
 
 function listBacklog(options){
-    const tasksJSON = fs.readFileSync('./srv/db/backlogs.json', 'utf8');
+    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
     const tasks = JSON.parse(tasksJSON);
     
     if(options.priority)listBacklogByPriority(tasks,options.priority)
