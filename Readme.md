@@ -6,13 +6,16 @@ This is a cli tool project craeted to manage tasks and backlogs on cli for devel
 
 ## Installation
 
-1. Clone the repo and go to folder backlog-cli
+1. ``` npm install -g backlog-cli-manager ```
 
-2. ``` npm i ``` to install dependencies
+2. If it says backlog already exists, use --force flag
+``` npm install -g backlog-cli-manager --force ```
 
-3. ``` npm i -g . ``` to install cli on system
+3. In windows systems, set permission to access files by
 
-## Release: 0.0.1
+``` Set-ExecutionPolicy RemoteSigned -Scope Process ```
+
+## Release: 0.1.0
 
 ## Features:
 
@@ -51,3 +54,13 @@ or
 ### Remove a backlog
 
 ``` backlog -r <name> ```
+
+### Important : 
+Check Compliance before installing in Organisation Systems
+
+### For queries: 
+Reach out by creating comments/issues/mail or connect to social media via:
+
+[Twitter](https://twitter.com/Agarwal__Shivam)
+
+[LinkedIn](https://www.linkedin.com/in/shivam-agarwal-profile)
