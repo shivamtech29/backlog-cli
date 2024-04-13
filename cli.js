@@ -11,6 +11,7 @@ console.log(figlet.textSync("Backlog"))
 program
     .version("0.0.1")
     .description("manage your backlogs via cli")
+    .option("-i, --init","Initialise")
     .option("-a, --add", "Add a Backlog")
     .option("-n, --name <value>", "Backlog name")
     .option("-d, --description <value>", "Backlog description")

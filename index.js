@@ -3,8 +3,12 @@ const listBacklog = require("./srv/listBacklog")
 const listBacklogs = require("./srv/listBacklogs")
 const updateBacklog = require("./srv/updateBacklog")
 const removeBacklog = require("./srv/removeBacklog")
+const initBacklog = require("./init")
 
 function init(options){
+    if (options.init){
+        initBacklog()
+    }
     if (options.add){
         addBacklog(options)
     }
