@@ -1,3 +1,5 @@
 node_modules
 .gitignore
 Readme.md
+backlog-db
+srv/db
