@@ -13,7 +13,8 @@
     "cli-table3": "^0.6.4",
     "commander": "^12.0.0",
     "figlet": "^1.7.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid":"^9.0.1"
   },
   "bin": {
     "backlog": "cli.js"
