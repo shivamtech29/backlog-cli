@@ -1,4 +1,5 @@
 const fs = require('fs');
+const uuid = require('uuid');
 
 function addBacklog(options){
     // validate inputs
@@ -7,6 +8,7 @@ function addBacklog(options){
 
 function addToFile(name,des,prio,deadline,status){
 
+    const taskid = uuid.v4();
     const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
     const tasks = JSON.parse(tasksJSON);
     
@@ -15,7 +17,8 @@ function addToFile(name,des,prio,deadline,status){
         Description: des.toLowerCase(),
         Priority: prio.toLowerCase(),
         Deadline: deadline.toLowerCase(),
-        Status: status.toLowerCase()
+        Status: status.toLowerCase(),
+        TaskId: taskid.toString()
     };
 
     tasks.push(newTask);
