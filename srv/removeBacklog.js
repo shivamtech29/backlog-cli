@@ -1,9 +1,10 @@
 const fs = require('fs');
 const listBacklogs = require('./listBacklogs');
 const {throwNameValidationError, noValidBacklogFoundError}  = require('./utils/errors')
+const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
 
 function removeBacklog(options){
-    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
+    const tasksJSON = readBacklogsFromFile();
     const tasks = JSON.parse(tasksJSON);
 
     if(!options.name || 
@@ -15,7 +16,7 @@ function removeBacklog(options){
     if (tasks.length > updTasks.length){
         const updatedTasksJSON = JSON.stringify(updTasks);
         console.log("Successfully removed task..");
-        fs.writeFileSync('./backlog-db/backlogs.json', updatedTasksJSON);
+        writeBacklogsToFile(updatedTasksJSON);
     }
     else {
         noValidBacklogFoundError(options.name)

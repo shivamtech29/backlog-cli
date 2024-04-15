@@ -1,5 +1,6 @@
 const fs = require('fs');
 const objectToTable = require("./utils/objectToTable")
+const {readBacklogsFromFile} = require('./utils/fileUtility')
 
 function listBacklogByPriority(tasks,priority){
     const updTasks = tasks.filter(obj => obj.Priority.toLowerCase() === priority.toLowerCase());
@@ -16,7 +17,7 @@ function listBacklogByStatus(tasks,status){
 
 
 function listBacklog(options){
-    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
+    const tasksJSON = readBacklogsFromFile();
     const tasks = JSON.parse(tasksJSON);
     
     if(options.priority)listBacklogByPriority(tasks,options.priority)
