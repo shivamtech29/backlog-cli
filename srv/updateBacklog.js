@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const listBacklogs = require('./listBacklogs');
 function updateBacklog(name, status){
     const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
     const tasks = JSON.parse(tasksJSON);
@@ -14,6 +14,7 @@ function updateBacklog(name, status){
     }
     const updatedTasksJSON = JSON.stringify(tasks);
     fs.writeFileSync('./backlog-db/backlogs.json', updatedTasksJSON);
+    listBacklogs();
 }
 
 module.exports = updateBacklog
