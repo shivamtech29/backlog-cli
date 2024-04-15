@@ -1,6 +1,6 @@
 {
   "name": "backlog-cli-manager",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "This is a cli tool project craeted to manage tasks and backlogs on cli for developers who want quick access of all tasks while working on terminal itself.",
   "main": "index.js",
   "scripts": {
