@@ -1,6 +1,6 @@
-const fs = require('fs');
 const uuid = require('uuid');
 const {throwDeadlineValidationError, throwNameValidationError}  = require('./utils/errors')
+const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
 
 function addBacklog(options){
     // Validation:
@@ -33,7 +33,7 @@ function addBacklog(options){
 function addToFile(backlogObject){
 
     const taskid = uuid.v4();
-    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
+    const tasksJSON = readBacklogsFromFile()
     const tasks = JSON.parse(tasksJSON);
     
     const newTask = { 
@@ -48,7 +48,7 @@ function addToFile(backlogObject){
     tasks.push(newTask);
     const updatedTasksJSON = JSON.stringify(tasks);
 
-    fs.writeFileSync('./backlog-db/backlogs.json', updatedTasksJSON);
+    writeBacklogsToFile(updatedTasksJSON);
     console.log("Successfully added task..");
 }
 

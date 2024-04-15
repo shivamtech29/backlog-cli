@@ -1,9 +1,10 @@
 const fs = require('fs');
 const listBacklogs = require('./listBacklogs');
 const {throwNameValidationError, noValidBacklogFoundError}  = require('./utils/errors')
+const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
 
 function updateBacklog(name, status){
-    const tasksJSON = fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
+    const tasksJSON = readBacklogsFromFile();
     const tasks = JSON.parse(tasksJSON);
     if(!name || typeof name !== 'string' || name.startsWith("-")) throwNameValidationError();
     
@@ -17,7 +18,7 @@ function updateBacklog(name, status){
         noValidBacklogFoundError(name);
     }
     const updatedTasksJSON = JSON.stringify(tasks);
-    fs.writeFileSync('./backlog-db/backlogs.json', updatedTasksJSON);
+    writeBacklogsToFile(updatedTasksJSON);
     listBacklogs();
 }
 
