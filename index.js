@@ -19,7 +19,7 @@ function init(options){
         listBacklogs()
     }
     if(options.remove){
-        removeBacklog(options.name)
+        removeBacklog(options)
     }
     if(!options.list && options.completed){
         updateBacklog(options.name, "completed")
