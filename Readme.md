@@ -23,18 +23,33 @@ Set-ExecutionPolicy RemoteSigned -Scope Process
 ```
 
 4. Initialise the tool and use it from same directory later
+
+Initialise with File system
 ```
 backlog --init
 ```
+
+Or Use Github (Check PreRequisite also)
+```
+backlog --init --setcredentials
+```
+PreRequisites:
+
+* Have a Github Account
+* Have a public RepoGenerate and 
+* Copy a Personal access token with read/write/admin rights on repos. 
+
+#### IMP: 
+We do not take any credentials and everything is stored on your system only for all purpose use
 
 Note: Using via Docker:
 
 1. Pull latest Image from [DockerHub](https://hub.docker.com/repository/docker/shivamtech29/backlog-cli-manager) and Run the container. Use the container shell to interact with package.
 
 
-## Stable Release: 0.1.0
+## Stable Release: 0.1.3
 
-## Latest Release: 0.1.3
+## Latest Release: 1.0.0
 
 ## Features:
 
