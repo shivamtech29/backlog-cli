@@ -54,7 +54,42 @@ function addToFile(backlogObject){
 }
 
 function addToGithub(backlogObject){
-    // Code to add to Github Issues
+    const credentials = readFromFile("./backlog-db/githubCredentials.json");
+    const creds = JSON.parse(credentials);
+    const cred = creds.filter(obj => obj.default === true);
+
+    const apiUrl = `https://api.github.com/repos/${cred[0].username}/${cred[0].repo}/issues`;
+    console.log(apiUrl);
+    const issueData = {
+        title: backlogObject.name,
+        body:  backlogObject.description1,
+        labels: [
+            `priority ${backlogObject.priority}`,
+            `deadline ${backlogObject.deadline}`
+        ]
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cred[0].token}` // Replace with your GitHub token
+        },
+        body: JSON.stringify(issueData)
+    };
+    fetch(apiUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to create issue: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(issue => {
+        console.log('Issue created successfully:', issue.html_url);
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
 }
 
 module.exports = addBacklog
