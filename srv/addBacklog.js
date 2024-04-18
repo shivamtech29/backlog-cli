@@ -62,7 +62,7 @@ function addToGithub(backlogObject){
     console.log(apiUrl);
     const issueData = {
         title: backlogObject.name,
-        body:  backlogObject.description1,
+        body:  backlogObject.description,
         labels: [
             `priority ${backlogObject.priority}`,
             `deadline ${backlogObject.deadline}`
