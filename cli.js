@@ -23,6 +23,8 @@ program
     .option("-r, --remove", "Remove a Backlog")
     .option("-c, --completed", "Completed status")
     .option("-w, --working", "Working status")
+    .option("-sc, --setcredentials", "Set username, repo and token")
+    .option("-rp, --repo", "Use this repo instead of deafult")
     .parse(process.argv);
 
 const options = program.opts()
