@@ -1,11 +1,16 @@
 const fs = require('fs');
 const listBacklogs = require('./listBacklogs');
 const {throwNameValidationError, noValidBacklogFoundError}  = require('./utils/errors')
-const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
+const {writeToFile, readFromFile} = require('./utils/fileUtility')
 
 function updateBacklog(name, status){
-    const tasksJSON = readBacklogsFromFile();
-    const tasks = JSON.parse(tasksJSON);
+    if(system == 0){
+        const tasksJSON = readFromFile();
+        const tasks = JSON.parse(tasksJSON);
+    }
+    else{
+        // Code to fetch from Github and parse
+    }
     if(!name || typeof name !== 'string' || name.startsWith("-")) throwNameValidationError();
     
     const indexToUpdate = tasks.findIndex(obj => obj.Name.toLowerCase() === name.toLowerCase());
@@ -17,8 +22,13 @@ function updateBacklog(name, status){
         listBacklogs();
         noValidBacklogFoundError(name);
     }
-    const updatedTasksJSON = JSON.stringify(tasks);
-    writeBacklogsToFile(updatedTasksJSON);
+    if(system == 0){
+        const updatedTasksJSON = JSON.stringify(tasks);
+        writeToFile(updatedTasksJSON);
+    }
+    else{
+        // Code to add to Github
+    }
     listBacklogs();
 }
 
