@@ -1,8 +1,8 @@
 const uuid = require('uuid');
 const {throwDeadlineValidationError, throwNameValidationError}  = require('./utils/errors')
-const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
+const {writeToFile, readFromFile} = require('./utils/fileUtility')
 
-function addBacklog(options){
+function addBacklog(options,system){
     // Validation:
     // Name: Required, Deadline: xx-xx-yyyy, priority&description: optional
 
@@ -27,13 +27,14 @@ function addBacklog(options){
     if(!options.description || typeof options.description !== 'string') backlogObject.description = "no description";
     if(!options.priority    || typeof options.priority    !== 'string') backlogObject.priority = "low";
     
-    addToFile(backlogObject)
+    if(system == 0) addToFile(backlogObject)
+    else            addToGithub(backlogObject)
 }
 
 function addToFile(backlogObject){
 
     const taskid = uuid.v4();
-    const tasksJSON = readBacklogsFromFile()
+    const tasksJSON = readFromFile()
     const tasks = JSON.parse(tasksJSON);
     
     const newTask = { 
@@ -48,8 +49,12 @@ function addToFile(backlogObject){
     tasks.push(newTask);
     const updatedTasksJSON = JSON.stringify(tasks);
 
-    writeBacklogsToFile(updatedTasksJSON);
+    writeToFile(updatedTasksJSON);
     console.log("Successfully added task..");
+}
+
+function addToGithub(backlogObject){
+    // Code to add to Github Issues
 }
 
 module.exports = addBacklog
