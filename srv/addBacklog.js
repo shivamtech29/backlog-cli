@@ -1,8 +1,8 @@
 const uuid = require('uuid');
 const {throwDeadlineValidationError, throwNameValidationError}  = require('./utils/errors')
-const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
+const {writeToFile, readFromFile} = require('./utils/fileUtility')
 
-function addBacklog(options){
+function addBacklog(options,system){
     // Validation:
     // Name: Required, Deadline: xx-xx-yyyy, priority&description: optional
 
@@ -27,13 +27,14 @@ function addBacklog(options){
     if(!options.description || typeof options.description !== 'string') backlogObject.description = "no description";
     if(!options.priority    || typeof options.priority    !== 'string') backlogObject.priority = "low";
     
-    addToFile(backlogObject)
+    if(system == 0) addToFile(backlogObject)
+    else            addToGithub(backlogObject)
 }
 
 function addToFile(backlogObject){
 
     const taskid = uuid.v4();
-    const tasksJSON = readBacklogsFromFile()
+    const tasksJSON = readFromFile()
     const tasks = JSON.parse(tasksJSON);
     
     const newTask = { 
@@ -48,8 +49,47 @@ function addToFile(backlogObject){
     tasks.push(newTask);
     const updatedTasksJSON = JSON.stringify(tasks);
 
-    writeBacklogsToFile(updatedTasksJSON);
+    writeToFile(updatedTasksJSON);
     console.log("Successfully added task..");
+}
+
+function addToGithub(backlogObject){
+    const credentials = readFromFile("./backlog-db/githubCredentials.json");
+    const creds = JSON.parse(credentials);
+    const cred = creds.filter(obj => obj.default === true);
+
+    const apiUrl = `https://api.github.com/repos/${cred[0].username}/${cred[0].repo}/issues`;
+    console.log(apiUrl);
+    const issueData = {
+        title: backlogObject.name,
+        body:  backlogObject.description,
+        labels: [
+            `priority ${backlogObject.priority}`,
+            `deadline ${backlogObject.deadline}`
+        ]
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cred[0].token}` // Replace with your GitHub token
+        },
+        body: JSON.stringify(issueData)
+    };
+    fetch(apiUrl, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to create issue: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(issue => {
+        console.log('Issue created successfully:', issue.html_url);
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+    });
 }
 
 module.exports = addBacklog

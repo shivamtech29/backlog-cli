@@ -1,25 +1,32 @@
 const fs = require('fs');
 const listBacklogs = require('./listBacklogs');
 const {throwNameValidationError, noValidBacklogFoundError}  = require('./utils/errors')
-const {writeBacklogsToFile, readBacklogsFromFile} = require('./utils/fileUtility')
+const {writeToFile, readFromFile} = require('./utils/fileUtility')
 
-function updateBacklog(name, status){
-    const tasksJSON = readBacklogsFromFile();
-    const tasks = JSON.parse(tasksJSON);
-    if(!name || typeof name !== 'string' || name.startsWith("-")) throwNameValidationError();
+function updateBacklog(name, status, system){
+    if(system == 0){
+        const tasksJSON = readFromFile();
+        const tasks = JSON.parse(tasksJSON);
+        if(!name || typeof name !== 'string' || name.startsWith("-")) throwNameValidationError();
     
-    const indexToUpdate = tasks.findIndex(obj => obj.Name.toLowerCase() === name.toLowerCase());
+        const indexToUpdate = tasks.findIndex(obj => obj.Name.toLowerCase() === name.toLowerCase());
 
-    if (indexToUpdate !== -1) {
-        tasks[indexToUpdate].Status = status;
-        console.log("Successfuly updated");
-    } else {
+        if (indexToUpdate !== -1) {
+            tasks[indexToUpdate].Status = status;
+            console.log("Successfuly updated");
+        } else {
+            listBacklogs();
+            noValidBacklogFoundError(name);
+        }
+        const updatedTasksJSON = JSON.stringify(tasks);
+        writeToFile(updatedTasksJSON);
+
         listBacklogs();
-        noValidBacklogFoundError(name);
     }
-    const updatedTasksJSON = JSON.stringify(tasks);
-    writeBacklogsToFile(updatedTasksJSON);
-    listBacklogs();
+    else{
+        issueMarkAsClosed(options.name,"completed")
+    }
+    
 }
 
 module.exports = updateBacklog

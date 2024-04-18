@@ -1,14 +1,14 @@
 const fs = require('fs');
 
-function readBacklogsFromFile(){
-    return fs.readFileSync('./backlog-db/backlogs.json', 'utf8');
+function readFromFile(path = "./backlog-db/backlogs.json"){
+    return fs.readFileSync(path, 'utf8');
 }
 
-function writeBacklogsToFile(tasks){
-    fs.writeFileSync('./backlog-db/backlogs.json', tasks);
+function writeToFile(tasks,path = './backlog-db/backlogs.json'){
+    fs.writeFileSync(path, tasks);
 }
 
 module.exports = {
-    readBacklogsFromFile,
-    writeBacklogsToFile
+    readFromFile,
+    writeToFile
 }
