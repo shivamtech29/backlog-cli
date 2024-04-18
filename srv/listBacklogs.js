@@ -1,27 +1,9 @@
 const fs = require('fs');
 const objectToTable = require("./utils/objectToTable")
 const {readFromFile} = require('./utils/fileUtility')
+const {getLabel} = require("./utils/githubUtility")
 
-function getLabel(labels){
-    var impLabels = {}
-    labels.forEach(label => {
-      const parts = label.name.split(' ');
-      const labelName = parts[0];
-      switch (labelName) {
-        case 'priority':
-        impLabels["priority"] = parts[1];
-          break;
-        case 'deadline':
-        impLabels["deadline"] = parts[1];
-          break;
-        default:
-          break;
-      }
-    });
-    return impLabels;
-}
-
-function listBacklogs(system){
+async function listBacklogs(system, flag = 0){
     var tasks;
     if(system == 0){
         tasksJSON = readFromFile();
@@ -35,7 +17,7 @@ function listBacklogs(system){
         const apiUrl = `https://api.github.com/repos/${cred[0].username}/${cred[0].repo}/issues`;
         tasks = []
 
-        fetch(apiUrl, {
+        return fetch(apiUrl, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${cred[0].token}`
@@ -60,7 +42,9 @@ function listBacklogs(system){
                   }
                 tasks.push(task);
             });
+            if(flag == 0)
             console.log(objectToTable(tasks))
+            else return tasks
         })
         .catch(error => {
             console.error('Error:', error.message);
