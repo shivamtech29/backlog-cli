@@ -47,9 +47,9 @@ Note: Using via Docker:
 1. Pull latest Image from [DockerHub](https://hub.docker.com/repository/docker/shivamtech29/backlog-cli-manager) and Run the container. Use the container shell to interact with package.
 
 
-## Stable Release: 0.1.3
+## Stable Release: 1.1.0
 
-## Latest Release: 1.0.0
+## Latest Release: 1.1.0
 
 ## Features:
 

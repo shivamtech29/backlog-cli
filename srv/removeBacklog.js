@@ -23,7 +23,7 @@ function removeBacklog(options,system){
             noValidBacklogFoundError(options.name)
         }
         
-        listBacklogs();
+        listBacklogs(system);
     }
     else{
         issueMarkAsClosed(options.name,"not_planned")
