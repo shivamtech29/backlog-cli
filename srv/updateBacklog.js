@@ -15,13 +15,13 @@ function updateBacklog(name, status, system){
             tasks[indexToUpdate].Status = status;
             console.log("Successfuly updated");
         } else {
-            listBacklogs();
+            listBacklogs(system);
             noValidBacklogFoundError(name);
         }
         const updatedTasksJSON = JSON.stringify(tasks);
         writeToFile(updatedTasksJSON);
 
-        listBacklogs();
+        listBacklogs(system);
     }
     else{
         issueMarkAsClosed(options.name,"completed")
