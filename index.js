@@ -3,8 +3,11 @@ const listBacklog = require("./srv/listBacklog")
 const listBacklogs = require("./srv/listBacklogs")
 const updateBacklog = require("./srv/updateBacklog")
 const removeBacklog = require("./srv/removeBacklog")
+const editBacklog = require("./srv/editBacklog")
+const showCommands = require("./srv/showCommands")
 const { initBacklogFs, initBacklogGh } = require("./init")
 const { readFromFile } = require('./srv/utils/fileUtility')
+const importBacklogs = require("./srv/transfer/import")
 
 function getSystem() {
     try {
@@ -48,6 +51,17 @@ function init(options) {
     if (options.working) {
         var system = getSystem()
         updateBacklog(options.name, "working", system)
+    }
+    if (options.edit) {
+        var system = getSystem()
+        editBacklog(options, system)
+    }
+    if (options.import) {
+        var system = getSystem()
+        importBacklogs(system, options)
+    }
+    if (options.command) {
+        showCommands()
     }
 }
 
